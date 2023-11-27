@@ -1,7 +1,1577 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+<html
+  class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths ready"
+>
+  <head>
+    <title>
+      Vim + Tmux: How to make Vim your IDE for cross language development
+    </title>
+
+    <!-- Deck.js stylesheets -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/core/deck.core.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/navigation/deck.navigation.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/hash/deck.hash.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/scale/deck.scale.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/themes/transition/fade.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/vim_tmux.css" />
+
+    <!-- <script src="assets/javascripts/modernizr.custom.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Shuffle/3.1.1/modernizr.custom.min.js"></script>
+  </head>
+  <body>
+    <article class="deck-container on-slide-intro on-slide-0 deck-scale">
+      <section class="slide title deck-current" id="intro">
+        <div class="deck-slide-scaler">
+          <h1 id="vim__tmux">Vim + Tmux</h1>
+          <h2 id="how_to_make_vim_your_ide_for_cross_language_development">
+            How to make Vim your IDE for cross language development
+          </h2>
+          <h3 id="by_nick_lamuro">By Nick LaMuro</h3>
+        </div>
+      </section>
+
+      <section class="slide content deck-next" id="contents">
+        <div class="deck-slide-scaler">
+          <h2 id="vim__tmux">Vim + Tmux</h2>
+          <ul>
+            <li>
+              <p>What to expect</p>
+            </li>
+
+            <li>
+              <p>Vim</p>
+
+              <ul>
+                <li>What is Vim?</li>
+
+                <li>Why Vim?</li>
+
+                <li>Demo</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Tmux</p>
+
+              <ul>
+                <li>What is Tmux?</li>
+
+                <li>Why Tmux</li>
+
+                <li>Demo</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Vim + Tmux</p>
+
+              <ul>
+                <li>What you can do to leverage the two</li>
+
+                <li>Demo</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="what-to-expect">
+        <div class="deck-slide-scaler">
+          <h1 id="what_to_expect">What to Expect</h1>
+        </div>
+      </section>
+
+      <section
+        class="slide content deck-after"
+        id="what-to-expect-from-this-talk"
+      >
+        <div class="deck-slide-scaler">
+          <h2 id="what_to_expect_from_this_talk">
+            What to expect from this talk
+          </h2>
+          <ul>
+            <li>
+              <p>I will explain what vim is and how to use it (breifly…)</p>
+
+              <ul>
+                <li>Configuration, basic usage, common actions</li>
+
+                <li>Plugins, how to manage them, and how to write your own</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>I will explain what tmux is and how to use it (breifly…)</p>
+
+              <ul>
+                <li>What tmux is</li>
+
+                <li>Configuration and basic usages</li>
+
+                <li>Plugins/Wrappers</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>I will explain how to use the two together (sortof…)</p>
+
+              <ul>
+                <li>Vimux</li>
+
+                <li>Thats about it…</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="what-to-expect-from-me">
+        <div class="deck-slide-scaler">
+          <h2 id="what_to_expect_from_me">What to expect from me</h2>
+          <ul>
+            <li>
+              <p>
+                I am terrible (okay… probably ‘inexperienced’) at giving talks
+              </p>
+
+              <ul>
+                <li>so set your expectations low</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                I am not going to indoctrinate you to use these tools (for the
+                most part…)
+              </p>
+
+              <ul>
+                <li>I want this talk to show you why I use this setup</li>
+
+                <li>Describe pros and cons</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>I am not going to bash your current setup</p>
+
+              <ul>
+                <li>Okay, that probably isn’t true</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="what-I-expect-from-you">
+        <div class="deck-slide-scaler">
+          <h2 id="what_i_expect_from_you">What I expect from you</h2>
+          <ul>
+            <li>
+              <p>Basic Unix/Linux terminal usage</p>
+
+              <ul>
+                <li>I don’t have time to explain this</li>
+
+                <li>Tmux is not something you can use on windows, sorry.</li>
+
+                <li>
+                  (But hey, linux doesn’t cost anything, plus you can use linux
+                  VM’s in windows)
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>SILENCE!!!</p>
+
+              <ul>
+                <li>Nah, just kidding.</li>
+
+                <li>Questions/Critiques are welcome (and encourage).</li>
+
+                <li>Heckling is legit too (to an extent…)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="what-is-vim">
+        <div class="deck-slide-scaler">
+          <h1 id="what_is_vim">What is Vim?</h1>
+        </div>
+      </section>
+
+      <section
+        class="slide title with-sub-title deck-after"
+        id="history-of-vim"
+      >
+        <div class="deck-slide-scaler">
+          <h1 id="history_of_vim">History of Vim…</h1>
+          <h3 id="just_kidding">…just kidding</h3>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="the-gist-of-it">
+        <div class="deck-slide-scaler">
+          <h2 id="the_gist_of_it">The gist of it…</h2>
+          <ul>
+            <li>
+              <p>Terminal based text editor</p>
+
+              <ul>
+                <li>
+                  though there are versions you can use without using the
+                  terminal…
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Keyboard based. No Mouse.</p>
+
+              <ul>
+                <li>though you can use it if you want…</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Very slim and minimalistic</p>
+
+              <ul>
+                <li>though you can change that…</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide screenshot deck-after" id="vim-screenshot">
+        <div class="deck-slide-scaler">
+          <p>
+            <img
+              src="/assets/images/vim_tmux/vim-screenshot.png"
+              alt="Vim Screenshot"
+            />
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="why-vim">
+        <div class="deck-slide-scaler"><h1 id="why_vim">Why Vim?</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="the-advantages-of-vim">
+        <div class="deck-slide-scaler">
+          <h2 id="the_advantages_of_vim">The Advantages of Vim</h2>
+          <ul>
+            <li>
+              <p>Modal development</p>
+
+              <ul>
+                <li>Normal, Visual, Insert modes</li>
+
+                <li>Allows you to edit quickly and effeciently</li>
+
+                <li>No mouse required!</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Availble on all systems (even Windows)</p>
+
+              <ul>
+                <li>Works best on Unix based systems</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Language agnostic</p>
+
+              <ul>
+                <li>It’s just a text editor</li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Very lightweight</p>
+
+              <ul>
+                <li>But very customizable</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="demo-vim">
+        <div class="deck-slide-scaler"><h1 id="demo">Demo</h1></div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-basics">
+        <div class="deck-slide-scaler"><h1 id="basics">Basics</h1></div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-movement">
+        <div class="deck-slide-scaler"><h1 id="movement">Movement</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-movement-explained">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_movement">Vim movement</h2>
+          <ul>
+            <li>
+              <p>Movement in Vim is done in Normal Mode</p>
+            </li>
+
+            <li>
+              <p>
+                Uses the <code>h</code>, <code>j</code>, <code>k</code>,
+                <code>l</code> keys to move one character at a time
+              </p>
+
+              <ul>
+                <li>
+                  You can also use the arrow keys, but it is highly discouraged
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                To move word by word, you can use the <code>w</code>,
+                <code>e</code>, and <code>b</code> keys
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To Move by paragraphs, you can use the <code>{</code> and
+                <code>}</code> keys, or <code>(</code> or <code>)</code>
+              </p>
+
+              <ul>
+                <li>Requires empty lines to work correctly</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-modes">
+        <div class="deck-slide-scaler"><h1 id="modes">Modes</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-modes-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_modes_modal_development">
+            Vim modes (Modal Development)
+          </h2>
+          <ul>
+            <li>
+              <p>Normal mode (aka ‘Command Mode’)</p>
+
+              <ul>
+                <li>Used for movement and commands</li>
+
+                <li>Staring mode</li>
+
+                <li>
+                  Also can be returned to by pressing <code>Esc</code> or
+                  <code>Ctrl-c</code> in any other mode (for the most part)
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Insert Mode</p>
+
+              <ul>
+                <li>Entering text</li>
+
+                <li>Nuff said</li>
+
+                <li>
+                  Entered <code>i</code>, <code>I</code>, <code>a</code>,
+                  <code>A</code>, <code>o</code>, <code>O</code> and others.
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Visual Mode</p>
+
+              <ul>
+                <li>Selecting text</li>
+
+                <li>
+                  Used modify, duplicate, replace, and delete selected text
+                </li>
+
+                <li>
+                  Entered using <code>v</code>, <code>V</code>,
+                  <code>Ctrl-v</code> and others
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-modes-cont">
+        <div class="deck-slide-scaler"><h2 id="thats_it">That’s it!</h2></div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-extra-modes">
+        <div class="deck-slide-scaler">
+          <h2 id="okay_fine">Okay fine…</h2>
+          <p>
+            Technically there are more then three modes, but they are mostly
+            subsets of the three previously mentioned. If you are curious and
+            want to learn more, type <code>:help vim-modes</code> while in Vim
+            to learn more.
+          </p>
+          <p>
+            In Vim, help docs are available inline on a variaty of subjects
+            regarding Vim. Just use the <code>:help [keyword]</code> to get
+            started.
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-copy-paste">
+        <div class="deck-slide-scaler"><h1 id="copypaste">Copy/Paste</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-copy-paste-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_copypaste">Vim: Copy/Paste</h2>
+          <ul>
+            <li>
+              <p>Most copying and cutting is done from Visual Mode</p>
+
+              <ul>
+                <li>
+                  <p>To copy (yank) some selected text, press <code>y</code></p>
+                </li>
+
+                <li>
+                  <p>
+                    To cut (delete) some selected text, press <code>x</code>
+                  </p>
+                </li>
+
+                <li>
+                  <p>All copied and cut text is put in a single paste buffer</p>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                To paste the text in the buffer after the cursor, press
+                <code>p</code>
+              </p>
+
+              <ul>
+                <li>
+                  And to paste it before the cursor, press <code>P</code> (<code
+                    >shift p</code
+                  >)
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-save-and-quit">
+        <div class="deck-slide-scaler">
+          <h1 id="save_and_quit">Save and Quit</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-save-quit-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_savequit">Vim: Save/Quit</h2>
+          <ul>
+            <li>
+              <p>
+                To save (write) a file, go to command mode and type
+                <code>:w</code>
+              </p>
+            </li>
+
+            <li>
+              <p>To quit Vim, go to command mode and type <code>:q</code></p>
+
+              <ul>
+                <li>
+                  <p>
+                    This really is ‘quiting’ a split, but we will get into that
+                    more later
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    By Default, you are also required to save before quiting. To
+                    override this, use <code>:q!</code>.
+                  </p>
+                </li>
+
+                <li>
+                  <p>Or to make it one step, use <code>:wq</code>.</p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-open-new-files">
+        <div class="deck-slide-scaler">
+          <h2 id="open_a_new_file_">
+            Open a new file: <code>:e path/to/file</code>
+          </h2>
+          <p>Hardly worth it’s own slide…</p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-advanced-functionality">
+        <div class="deck-slide-scaler">
+          <h1 id="advanced_functions">Advanced functions</h1>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-buffers">
+        <div class="deck-slide-scaler"><h1 id="buffers">Buffers</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-buffers-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_buffers">Vim: Buffers</h2>
+          <ul>
+            <li>
+              <p>
+                Each file that is opened is kept in a buffer, and can be
+                re-accessed at any point
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To switch between the buffers, you can type <code>:bp</code> and
+                <code>:bn</code> to move to the previous and next buffers
+                respectively
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To delete a buffer (close a file in Vim), you can type
+                <code>:bd</code>.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    This will close the split you are in as well if it is not
+                    the last split that is open
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    It will also not close vim if you close the last buffer, and
+                    will just take you to a empty file buffer
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-buffers-caveat">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_buffers_cont">Vim: Buffers cont.</h2>
+          <p>
+            One thing to keep in mind is that by default, vim won’t let you
+            switch between buffers without saving the current buffer you are in
+            first. This gets old pretty quick, and is not helpful when you are
+            just using one file as a reference.
+          </p>
+          <p>
+            To get around this, you can set the ‘hidden’ option (<code
+              >:set hidden</code
+            >) which will let you swtich between buffers freely and keep your
+            undo history for each.
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-splits">
+        <div class="deck-slide-scaler"><h1 id="splits">Splits</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-split-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_splits">Vim: Splits</h2>
+          <ul>
+            <li>
+              <p>
+                In Vim, you are able to ‘split’ the window vertically or
+                horizontally
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    By default, it will split the current split (or window) in
+                    half and use the current buffer that is in the original
+                    split to display in the new split.
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    The buffers are shared between split, so you are able to
+                    switch between them freely.
+                  </p>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                To create a new horizontal split, just press
+                <code>Ctrl-w s</code>, or <code>:split</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To create a new verticle split, just press
+                <code>Ctrl-w v</code>, or <code>:vsplit</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-split-cont-2">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_splits_cont">Vim: Splits cont.</h2>
+          <ul>
+            <li>
+              <p>
+                Both <code>:split</code> and <code>:split</code> can take a file
+                name in the argument to open a new file with
+              </p>
+            </li>
+
+            <li>
+              <p>
+                You can switch between splits by prefixing
+                <code>Ctrl-w</code> with <code>h</code>, <code>j</code>,
+                <code>k</code>, or <code>l</code> (moving your to the slit to
+                the left, down, up and right respectively)
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Resize a split by combining <code>Ctrl-w</code> with
+                <code>+</code>, <code>-</code>, <code>&lt;</code> or
+                <code>&gt;</code> (increasing the size of the split upwards,
+                downwards, to the left and to the right respectively)
+              </p>
+            </li>
+
+            <li>
+              <p>
+                You can close a split by either closing the buffer
+                (<code>:bd</code>), or quiting <code>:q</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-search">
+        <div class="deck-slide-scaler"><h1 id="search">Search</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-search-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_search">Vim: Search</h2>
+          <ul>
+            <li>
+              <p>
+                Searching for a specific word or phrase in vim can be
+                accomplished by pressing <code>/</code> and then your word or
+                phrase and pressing <code>Enter</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                By pressing <code>n</code> and <code>N</code>, you can cycle
+                through the search results forward and backward respectively
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Set <code>:set hlsearch</code> to have vim highlight your search
+                results
+              </p>
+
+              <ul>
+                <li>
+                  Typing <code>:noh</code> will turn of the currently
+                  highlighted text
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                More info on Vim Regex can be found here:
+                <a href="http://vimregex.com/">http://vimregex.com/</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-find-and-replace">
+        <div class="deck-slide-scaler">
+          <h1 id="find_and_replace">Find and Replace</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-find-and-replace-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_find_and_replace">Vim: Find and Replace</h2>
+          <ul>
+            <li>
+              <p>
+                The syntax for find and replace:
+                <code>:%s/[existing-word]/[new-word]</code>
+              </p>
+            </li>
+
+            <li>
+              <p>You can add modifiers on to end of the expression</p>
+
+              <ul>
+                <li>
+                  <p>’c’ will require a confirmation with each substitution</p>
+                </li>
+
+                <li>
+                  <p>’g’ will make the change globally on each line</p>
+                </li>
+
+                <li>
+                  <p>’i’ ignores case (default) and ‘I’ is case sensitive</p>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                Example: To replace all instances of ‘apple’ with ‘banana’, type
+                <code>:%s/apple/banana/g</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-configuration">
+        <div class="deck-slide-scaler">
+          <h1 id="configuration">Configuration</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-configuration-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_configuration">Vim Configuration</h2>
+          <ul>
+            <li>
+              <p>Vim provides a lot of settings that you can customize</p>
+            </li>
+
+            <li>
+              <p>What you have seen so far:</p>
+
+              <ul>
+                <li><code>:set hidden</code></li>
+
+                <li><code>:set hlsearch</code></li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                But these all go away once you close vim, so how do we persist
+                these settings?
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-enter-the-vimrc">
+        <div class="deck-slide-scaler">
+          <h1 id="enter_the_vimrc">Enter the .vimrc</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-vimrc">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_the_vimrc">Vim: The .vimrc</h2>
+          <ul>
+            <li>
+              <p>
+                The <code>.vimrc</code> for you should live within your home
+                directory.
+              </p>
+
+              <ul>
+                <li>
+                  With a fresh install of Vim, it might be blank or non
+                  existant, but you can create it there and Vim will recognize
+                  and respect it
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                In it, you can set all the defaults that you want when vim loads
+                up
+              </p>
+
+              <ul>
+                <li>Settings</li>
+
+                <li>Custom keybindings</li>
+
+                <li>Custom functions</li>
+
+                <li>etc.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-vimrc-settings">
+        <div class="deck-slide-scaler">
+          <h2 id="vimrc_settings">.vimrc settings</h2>
+          <p>Useful settings:</p>
+          <ul>
+            <li>Turn on syntax highlighting: <code>syntax on</code></li>
+
+            <li>Turn on line numbers: <code>set number</code></li>
+
+            <li>Turn off line wrap: <code>set nowrap</code></li>
+
+            <li>Avoid compatability errors: <code>set nocompatible</code></li>
+
+            <li>Autocomplete menu: <code>set wildmenu</code></li>
+
+            <li>Set command line height: <code>set cmdheigh=2</code></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-vimrc-keybindings">
+        <div class="deck-slide-scaler">
+          <h2 id="vimrc_keybindings">.vimrc keybindings</h2>
+          <ul>
+            <li>
+              <p>
+                You are also able to create keybindings for the multiple modes
+                of Vim in your .vimrc
+              </p>
+            </li>
+
+            <li>
+              <p>To create a command, you need three things:</p>
+
+              <ul>
+                <li>
+                  <p>
+                    The ‘mapping’ type: <code>map</code>, <code>nmap</code>,
+                    <code>vmap</code>, <code>imap</code>
+                  </p>
+                </li>
+
+                <li>
+                  <p>The key combination</p>
+                </li>
+
+                <li>
+                  <p>The command as you would enter it in normal mode</p>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                Example to map ‘F4’ to <code>:bn</code>:
+                <code>nmap &lt;F4&gt; :bn&lt;CR&gt;</code>
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    Non-alphanumeric keys usually are surrounded by
+                    <code>&lt;</code> and <code>&gt;</code>
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    <code>&lt;CR&gt;</code> stands for ‘Carriage Return’, or
+                    ‘Enter’
+                  </p>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-my-vimrc">
+        <div class="deck-slide-scaler">
+          <h2 id="my_vimrc">My .vimrc</h2>
+          <p>
+            <a href="https://gist.github.com/1147370"
+              >https://gist.github.com/1147370</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-plugins">
+        <div class="deck-slide-scaler"><h1 id="plugins">Plugins</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-plugins-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_plugins">Vim: Plugins</h2>
+          <ul>
+            <li>
+              <p>
+                Plugins in Vim (and like in any other software ever) allow you
+                to extend the functionality of Vim
+              </p>
+            </li>
+
+            <li>
+              <p>
+                The Plugins community in vim is incrediblely strong and active
+              </p>
+            </li>
+
+            <li>
+              <p>There is a plugin for just about anything you want</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="vim-noteable-plugins-">
+        <div class="deck-slide-scaler">
+          <h2 id="vim_noteable_plugins">Vim: Noteable Plugins</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/scrooloose/nerdtree">NERDTree</a>:
+              File drawer
+            </li>
+
+            <li>
+              <a href="https://github.com/scrooloose/nerdcommenter"
+                >NERDCommenter</a
+              >: Mass commenting
+            </li>
+
+            <li>
+              <a href="https://github.com/fholgado/minibufexpl.vim"
+                >minibufexpl</a
+              >: Vim and Tmux integration
+            </li>
+
+            <li>
+              <a href="https://github.com/msanders/snipmate.vim">snipmate</a>:
+              Code snippets with tab completion
+            </li>
+
+            <li>
+              <a href="https://github.com/mileszs/ack.vim">ack.vim</a>: Ack
+              integration with Vim
+            </li>
+
+            <li>
+              <a href="https://github.com/kien/ctrlp.vim">ctrlp</a>: Fuzzy file
+              finder
+            </li>
+
+            <li>
+              <a href="https://github.com/tpope/vim-pathogen">pathogen</a>:
+              Plugin loader
+            </li>
+
+            <li>
+              <a href="http://github.com/NickLaMuro/vimux">vimux</a>: Vim and
+              Tmux integration
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="what-is-tmux">
+        <div class="deck-slide-scaler">
+          <h1 id="what_is_tmux">What is Tmux?</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-explained">
+        <div class="deck-slide-scaler">
+          <h2 id="what_is_tmux">What is Tmux?</h2>
+          <ul>
+            <li>
+              <p>Tmux stands for/is a terminal multiplexor</p>
+
+              <blockquote>
+                <p>
+                  “it enables a number of terminals (or windows), each running a
+                  separate program, to be created, accessed, and controlled from
+                  a single screen. tmux may be detached from a screen and
+                  continue running in the background, then later reattached”
+                </p>
+              </blockquote>
+            </li>
+
+            <li>
+              <p>… huh?</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="so-what-is-tmux">
+        <div class="deck-slide-scaler">
+          <h2 id="so_basically_this">So basically this:</h2>
+        </div>
+      </section>
+
+      <section class="slide screenshot deck-after" id="tmux-screenshot">
+        <div class="deck-slide-scaler">
+          <p>
+            <img
+              src="/assets/images/vim_tmux/tmux-screenshot.png"
+              alt="Tmux Screenshot"
+            />
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title with-sub-title deck-after" id="why-tmux">
+        <div class="deck-slide-scaler">
+          <h1 id="why_tmux">Why Tmux?</h1>
+          <h2 id="and_why_not_just_use_splits_in_iterm2">
+            and why not just use splits in iTerm2
+          </h2>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="reasons-for-tmux">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_why_tmux">Tmux: Why Tmux?</h2>
+          <ul>
+            <li>
+              <p>Runs on both Mac and Linux (sorry Windows)</p>
+            </li>
+
+            <li>
+              <p>Runs in it’s own seperate process</p>
+            </li>
+
+            <li>
+              <p>Lightweight</p>
+            </li>
+
+            <li>
+              <p>
+                Customizable (or as customized a a terminal window manager can
+                get)
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Scriptable: You can script actions to be done in tmux like
+                running a command in another window to setting up your
+                environment on startup
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Sharable: You can have tmux run on a shared socked that other
+                users on the same machine can share
+              </p>
+
+              <ul>
+                <li>AKA: Paired programming</li>
+
+                <li>With ssh: Remote paired programming</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="demo-tmux">
+        <div class="deck-slide-scaler"><h1 id="demo">Demo</h1></div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-installation">
+        <div class="deck-slide-scaler">
+          <h1 id="installation">Installation</h1>
+        </div>
+      </section>
+
+      <section
+        class="slide content deck-after"
+        id="tmux-installation-instrucutions"
+      >
+        <div class="deck-slide-scaler">
+          <h2 id="installation">Installation</h2>
+          <ul>
+            <li>
+              <p>Linux: <code>$ sudo apt-get install tmux</code></p>
+
+              <ul>
+                <li>
+                  Note, the current only version 1.1 is available using this
+                  method. Install from source to get the most up to date version
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                Mac: <code>brew install tmux</code> or
+                <code>sudo port install tmux</code>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-install-from-source">
+        <div class="deck-slide-scaler">
+          <h2 id="install_from_source">Install from source</h2>
+          <ul>
+            <li>
+              <p>Linux prereqs</p>
+
+              <ul>
+                <li><code>$ sudo apt-get install build-essential</code></li>
+
+                <li>
+                  <code
+                    >$ sudo apt-get install libevent-dev libncurses5-dev</code
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>Mac Prereqs: XCode</p>
+            </li>
+          </ul>
+          <p>Install Instructions:</p>
+          <pre>
+            <p><code>$ wget http://downloads.sourceforge.net/project/tmux/tmux/tmux-1.6/tmux-1.6.tar.gz</code></p>
+            <p><code>$ tar -zxvf tmux-1.6.tar.gz</code></p>
+            <p><code>$ cd tmux-1.6</code></p>
+            <p><code>$ ./configure</code></p>
+            <p><code>$ make</code></p>
+            <p><<code>$ sudo make install</code></p>
+          </pre>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-attach-detach">
+        <div class="deck-slide-scaler">
+          <h1 id="attach_and_detach">Attach and Detach</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-attach-detach-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_attach_and_detach">Tmux: Attach and Detach</h2>
+          <ul>
+            <li>
+              <p>
+                To enter tmux, you can just type <code>tmux</code> from the
+                command line
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    This will attach you to a new session that is created with
+                    the name of ‘0’ (creative, I know)
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    If you want name it yourself, use
+                    <code>tmux new -s [name_of_session]</code>
+                  </p>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <p>
+                To leave a session, just close it by typing <code>exit</code> in
+                the last open pane
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To detach without closing a session type
+                <code>Ctrl-b d</code> or <code>tmux detach</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To attach to an existing session, use
+                <code>tmux attach -t [name_of_session]</code>
+              </p>
+
+              <ul>
+                <li>
+                  To see a list of the open sessions, you can type
+                  <code>tmux list-sessions</code> or <code>tmux ls</code> from
+                  outside of a tmux session
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-windows-and-panes">
+        <div class="deck-slide-scaler">
+          <h1 id="windows_and_panes">Windows and Panes</h1>
+        </div>
+      </section>
+
+      <section
+        class="slide content deck-after"
+        id="tmux-windows-and-panes-cont"
+      >
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_windows_and_panes">Tmux: Windows and Panes</h2>
+          <ul>
+            <li>
+              <p>To create a new tmux verticle split: <code>Ctrl-b %</code></p>
+            </li>
+
+            <li>
+              <p>
+                To create a new tmux horizontal split: <code>Ctrl-b %</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To move between pains, combine <code>Ctrl-b</code> with
+                <code>Up</code>, <code>Down</code>, <code>Left</code> or
+                <code>Right</code>
+              </p>
+            </li>
+
+            <li>
+              <p>To close a pain: <code>Ctrl-b x</code></p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-configuration">
+        <div class="deck-slide-scaler">
+          <h1 id="configuration">Configuration</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-config-explained">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_configuration">Tmux: Configuration</h2>
+          <ul>
+            <li>
+              <p>
+                Just like the <code>.vimrc</code>, tmux also has a config file
+                that you can add to your home directory: <code>.tmux.conf</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                As with the <code>.vimrc</code>, you are able to customize the
+                controls and the look and feel of the screen with the
+                <code>.tmux.conf</code>
+              </p>
+            </li>
+
+            <li>
+              <p>
+                Another similarity is that everything you are doing in the
+                <code>.tmux.conf</code> is just executing a command that you can
+                otherwise just run using tmux’s command mode
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-config-quick-reload">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_configuration_cont">Tmux: Configuration Cont.</h2>
+          <p>
+            We are about to make a lot of changes to the
+            <code>.tmux.conf</code>, and restarting tmux everytime is no picnic.
+            To make this easier, we can reload tmux by running the following
+            command:
+          </p>
+          <pre><code>source-file ~/.tmux.conf</code></pre>
+          <p>
+            This is similar to reloading your <code>.bashrc</code> when you make
+            changes. To make this even easier, you can bind this to a key
+            mapping:
+          </p>
+          <pre><code>bind-key r      source-file ~/.tmux.conf; display-message "~/.tmux.conf is reloaded"</code></pre>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-config-change-prefix">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_configuration_cont">Tmux: Configuration Cont.</h2>
+          <ul>
+            <li>
+              <p>
+                The default prefix key is also not that easy to use, and while
+                it doesn’t conflict with a whole lot, it still is nice to have a
+                prefix key that is convenient to use.
+              </p>
+            </li>
+
+            <li>
+              <p>
+                To change the prefix key, add the following to your
+                <code>.tmux.conf</code>
+              </p>
+
+              <p>unbind C-b set -g prefix C-a</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section
+        class="slide content deck-after"
+        id="tmux-config-change-movement"
+      >
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_configuration_cont">Tmux: Configuration Cont.</h2>
+          <p>
+            Movement in tmux also doesn’t default to something that you are
+            propbably already comfortable with: the Vim key bindings, so you can
+            make some changes to make using tmux similar to Vim
+          </p>
+          <p>Change movement keys:</p>
+          <pre><code>bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R</code></pre>
+          <p>Change how you resize panes:</p>
+          <pre><code>bind-key J resize-pane -D 5
+bind-key K resize-pane -U 5
+bind-key H resize-pane -L 5
+bind-key L resize-pane -R 5</code></pre>
+          <p>
+            Change copy mode: <code>set-window-option -g mode-keys vi</code>
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="slide content deck-after"
+        id="tmux-other-convenient-configs"
+      >
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_configuration_cont">Tmux: Configuration Cont.</h2>
+          <p>These are just a few more configs that are nice:</p>
+          <pre><code>set -g base-index 1    # start window index of 1
+
+set -sg escape-time 1  # fixes some delay issues in vim
+
+bind-key a      send-key C-a   # `Ctrl-a a` sends `Ctrl-a`
+bind-key n      command-prompt 'rename-window %%'
+bind-key N      command-prompt 'rename-session %%'
+bind-key -r &lt;   swap-window -t :-
+bind-key -r &gt;   swap-window -t :+
+
+# Copy mode keybindings
+unbind p
+bind p paste-buffer
+bind -t vi-copy 'v' begin-selection
+bind -t vi-copy 'y' copy-selection</code></pre>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-my-config">
+        <div class="deck-slide-scaler">
+          <h2 id="my_">My <code>.tmux.conf</code></h2>
+          <p>
+            <a href="https://gist.github.com/1687643"
+              >https://gist.github.com/1687643</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="tmux-addons">
+        <div class="deck-slide-scaler"><h1 id="addons">Addons</h1></div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-addons-cont">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_addons">Tmux: Addons</h2>
+          <ul>
+            <li>
+              <a href="https://github.com/aziz/tmuxinator">Tmuxinator</a>:
+              Startup tool for tmux
+            </li>
+
+            <li>
+              <a href="https://gist.github.com/1147532">Brian’s Tmux Conf</a>:
+              Some more cool config options
+            </li>
+          </ul>
+          <p>There really aren’t a lot of addons that you need for tmux…</p>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="tmux-book">
+        <div class="deck-slide-scaler">
+          <h2 id="tmux_brian_hogans_tmux_book">
+            Tmux: Brian Hogan’s Tmux Book
+          </h2>
+          <p>
+            This book is not only a great intro to tmux, but was also a great
+            reference for me when writing these slides.
+          </p>
+          <p>
+            <a href="http://pragprog.com/book/bhtmux/tmux"
+              >tmux: Productive Mouse-Free Development</a
+            >
+          </p>
+          <p>
+            <img src="/assets/images/vim_tmux/tmux-book.jpeg" alt="Tmux Book" />
+          </p>
+          <p>It’s only $11, so you have no excuse not to get it!</p>
+          <p>… unless you don’t have $11…</p>
+        </div>
+      </section>
+
+      <section class="slide title deck-after" id="vim-with-tmux">
+        <div class="deck-slide-scaler">
+          <h1 id="vim_with_tmux">Vim with Tmux</h1>
+        </div>
+      </section>
+
+      <section class="slide content deck-after" id="my-info">
+        <div class="deck-slide-scaler">
+          <h2 id="nick_lamuro">Nick LaMuro</h2>
+          <p></p>
+          <p>Twitter <code>@nicklamuro</code></p>
+          <p></p>
+          <p>
+            github
+            <a href="https://github.com/NickLaMuro"
+              >https://github.com/NickLaMuro</a
+            >
+          </p>
+          <p>
+            Slides
+            <a href="talks.nicklamuro.com/vim_tmux"
+              >http://talks.nicklamuro.com</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <!-- Navigation links. -->
+      <a href="#" class="deck-prev-link deck-nav-disabled" title="Previous"
+        >←</a
+      >
+      <a href="#contents" class="deck-next-link" title="Next">→</a>
+
+      <!-- Required JS files. -->
+      <!-- <script src="assets/javascripts/jquery-1.7.2.min.js"></script> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+      <!-- Deck.js js files -->
+      <!-- <script src="assets/javascripts/deck.js/deck.core.js"></script> -->
+      <!-- <script src="assets/javascripts/deck.js/extensions/deck.navigation.js"></script> -->
+      <!-- <script src="assets/javascripts/deck.js/extensions/deck.hash.js"></script> -->
+      <!-- <script src="assets/javascripts/deck.js/extensions/deck.scale.js"></script> -->
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/core/deck.core.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/navigation/deck.navigation.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/hash/deck.hash.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/deck.js/1.0.0/extensions/scale/deck.scale.js"></script>
+
+      <script type="text/javascript">
+        $(function () {
+          $.deck(".slide", { selectors: { container: "body > article" } });
+        });
+      </script>
+    </article>
+  </body>
+  <grammarly-desktop-integration
+    data-grammarly-shadow-root="true"
+  ></grammarly-desktop-integration>
 </html>
