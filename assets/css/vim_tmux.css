@@ -2,6 +2,68 @@
   overflow: hidden;
 }
 
+.csstransforms .slide h1,
+.csstransforms .slide .vcenter {
+  padding: 0 48px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25;
+  -webkit-transform: translate(0, -50%);
+  -moz-transform: translate(0, -50%);
+  -ms-transform: translate(0, -50%);
+  -o-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+}
+
+.deck-container article,
+.deck-container aside,
+.deck-container details,
+.deck-container figcaption,
+.deck-container figure,
+.deck-container footer,
+.deck-container header,
+.deck-container hgroup,
+.deck-container menu,
+.deck-container nav,
+.deck-container section {
+  display: block;
+}
+
+.deck-container div,
+.deck-container span,
+.deck-container p,
+.deck-container blockquote,
+.deck-container pre,
+.deck-container code,
+.deck-container q,
+.deck-container small,
+.deck-container strong,
+.deck-container sub,
+.deck-container sup,
+.deck-container b,
+.deck-container article,
+.deck-container canvas,
+.deck-container figure,
+.deck-container footer,
+.deck-container header,
+.deck-container menu,
+.deck-container nav,
+.deck-container summary,
+.deck-container section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+}
+
 .slide h1,
 .slide .vcenter {
   font-weight: bold;
@@ -98,47 +160,6 @@
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.75);
 }
 
-.csstransforms .slide h1,
-.csstransforms .slide .vcenter {
-  padding: 0 48px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  -webkit-transform: translate(0, -50%);
-  -moz-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  -o-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
-
-.csstransitions.csstransforms .deck-container:not(.deck-menu) > .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 0 0;
-}
-
-.deck-container footer,
-.deck-container header,
-.deck-container hgroup,
-.deck-container menu,
-.deck-container nav,
-.deck-container section {
-  display: block;
-  margin: 20px 0;
-  padding: 0;
-  border: 0;
-  font: inherit;
-  vertical-align: baseline;
-}
-
-.deck-container article {
-  line-height: 1.5;
-}
-
 body {
   font-family: "Pangolin", "VT323", "Cormorant Upright", "Square Peg", "Itim",
     monospace;
@@ -146,10 +167,16 @@ body {
   text-shadow: 0px 0px 16px rgba(20, 252, 3, 0.75);
   background-color: rgba(0, 0, 0, 0.96);
 }
+
 body article.deck-container {
   width: 80%;
   color: #14fc03;
+  margin: 20px auto;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1.25;
 }
+
 body article.deck-container .deck-link-next a,
 body article.deck-container .deck-link-prev a {
   color: #14fc03;
